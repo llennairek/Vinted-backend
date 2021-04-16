@@ -11,10 +11,6 @@ router.get("/", async (req, res) => {
   let skipNumber = 0;
 
   try {
-    // if (keys.length === 0) {
-    //   const offers = await Offer.find().select("product_name product_price").limit(limit);
-    //   return res.status(200).json(offers);
-    // }
     if (keys.includes("title")) {
       filterObject.product_name = new RegExp(req.query.title, "i");
     }
@@ -34,11 +30,7 @@ router.get("/", async (req, res) => {
       skipNumber = limit * (Number(req.query.page) - 1);
     }
 
-    const offers = await Offer.find(filterObject)
-      .sort(sortObject)
-      .skip(skipNumber)
-      .limit(limit)
-      .select("product_name product_price");
+    const offers = await Offer.find(filterObject).sort(sortObject).skip(skipNumber).limit(limit);
 
     const count = await Offer.countDocuments(filterObject);
 
