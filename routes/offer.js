@@ -76,12 +76,48 @@ router.put("/update/:id", isAuthenticated, async (req, res) => {
     //on verifie si l'utilisateur qui veut modifier l'annonce est bien le propriétaire
     if (token === owner.token) {
       if (offer && !keys.includes("owner")) {
-        keys.forEach(async (key) => {
-          offer[key] = req.fields[key];
-          // if (key === "product_details") {
-          //   offer.markModified(key);
-          // }
-        });
+        if (req.fields.title) {
+          offer.product_name = req.fields.title;
+        }
+        if (req.fields.description) {
+          offer.product_description = req.fields.description;
+        }
+        if (req.fields.price) {
+          offer.product_price = req.fields.price;
+        }
+
+        const details = offer.product_details;
+        for (i = 0; i < details.length; i++) {
+          if (details[i].MARQUE) {
+            if (req.fields.brand) {
+              details[i].MARQUE = req.fields.brand;
+            }
+          }
+          if (details[i].TAILLE) {
+            if (req.fields.size) {
+              details[i].TAILLE = req.fields.size;
+            }
+          }
+          if (details[i].ÉTAT) {
+            if (req.fields.condition) {
+              details[i].ÉTAT = req.fields.condition;
+            }
+          }
+          if (details[i].COULEUR) {
+            if (req.fields.color) {
+              details[i].COULEUR = req.fields.color;
+            }
+          }
+          if (details[i].EMPLACEMENT) {
+            if (req.fields.location) {
+              details[i].EMPLACEMENT = req.fields.location;
+            }
+          }
+        }
+
+        // Notifie Mongoose que l'on a modifié le tableau product_details
+        offer.markModified("product_details");
+
         if (req.files.picture) {
           const result = await cloudinary.uploader.upload(req.files.picture.path, {
             public_id: `vinted/offers/${offer.id}/preview`,
