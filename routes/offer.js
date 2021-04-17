@@ -64,7 +64,7 @@ router.post("/publish", isAuthenticated, async (req, res) => {
   }
 });
 
-router.put("/modify/:id", isAuthenticated, async (req, res) => {
+router.put("/update/:id", isAuthenticated, async (req, res) => {
   const keys = Object.keys(req.fields);
   const token = req.headers.authorization.replace("Bearer ", "");
   const { id } = req.params;
