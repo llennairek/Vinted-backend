@@ -76,10 +76,16 @@ router.put("/modify/:id", isAuthenticated, async (req, res) => {
     //on verifie si l'utilisateur qui veut modifier l'annonce est bien le propriétaire
     if (token === owner.token) {
       if (offer && !keys.includes("owner")) {
-        keys.forEach((key) => {
+        keys.forEach(async (key) => {
           offer[key] = req.fields[key];
-          if (key === "product-details") {
-            offer.markModified(key);
+          // if (key === "product_details") {
+          //   offer.markModified(key);
+          // }
+          if (key === "picture") {
+            const result = await cloudinary.uploader.upload(req.files.picture.path, {
+              public_id: `/vinted/offers/${offer._id}`,
+            });
+            offer.product_image = result;
           }
         });
         await offer.save();
