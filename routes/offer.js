@@ -31,9 +31,10 @@ router.post("/publish", isAuthenticated, async (req, res) => {
       owner,
     });
 
+    let cloudImage = {};
     //upload de l'image dans le dossier ayant comme nom l'id de la nouvelle annonce
     if (req.files.picture) {
-      const cloudImage = await cloudinary.uploader.upload(req.files.picture.path, {
+      cloudImage = await cloudinary.uploader.upload(req.files.picture.path, {
         folder: `/vinted/offers/${newOffer.id}`,
         public_id: `preview`,
       });
