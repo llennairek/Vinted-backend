@@ -37,6 +37,7 @@ router.post("/publish", isAuthenticated, async (req, res) => {
     if (req.files.picture) {
       cloudImage = await cloudinary.uploader.upload(req.files.picture.path, {
         folder: `/vinted/offers/${newOffer.id}`,
+        public_id: "preview",
       });
 
       //ajout de la clé de l'image pour notre annonce en bdd
@@ -83,7 +84,7 @@ router.put("/modify/:id", isAuthenticated, async (req, res) => {
           // }
           if (key === "picture") {
             const result = await cloudinary.uploader.upload(req.files.picture.path, {
-              public_id: `/vinted/offers/${offer._id}`,
+              public_id: `/vinted/offers/${offer._id}/preview`,
             });
             offer.product_image = result;
           }
