@@ -81,15 +81,13 @@ router.put("/modify/:id", isAuthenticated, async (req, res) => {
           // if (key === "product_details") {
           //   offer.markModified(key);
           // }
-          console.log("coucou");
-          console.log(key);
-          if (key === "picture") {
-            const result = await cloudinary.uploader.upload(req.files.picture.path, {
-              public_id: `/vinted/offers/${offer.id}/preview`,
-            });
-            offer.product_image = result;
-          }
         });
+        if (req.files.picture) {
+          const result = await cloudinary.uploader.upload(req.files.picture.path, {
+            public_id: `/vinted/offers/${offer.id}/preview`,
+          });
+          offer.product_image = result;
+        }
         await offer.save();
         res.status(200).json(offer);
       } else if (keys.includes("owner")) {
