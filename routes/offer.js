@@ -33,10 +33,14 @@ router.post("/publish", isAuthenticated, async (req, res) => {
 
     //upload de l'image dans le dossier ayant comme nom l'id de la nouvelle annonce
     if (req.files.picture) {
-      const cloudImage = await cloudinary.uploader.unsigned_upload(req.files.picture.path, {
-        folder: `/vinted/offers/${newOffer.id}`,
-        public_id: `preview`,
-      });
+      const cloudImage = await cloudinary.uploader.unsigned_upload(
+        req.files.picture.path,
+        "vinted_upload",
+        {
+          folder: `/vinted/offers/${newOffer.id}`,
+          public_id: `preview`,
+        }
+      );
 
       //ajout de la clé de l'image pour notre annonce en bdd
       newOffer.product_image = cloudImage;
