@@ -84,7 +84,7 @@ router.put("/modify/:id", isAuthenticated, async (req, res) => {
         });
         if (req.files.picture) {
           const result = await cloudinary.uploader.upload(req.files.picture.path, {
-            public_id: `/vinted/offers/${offer.id}/preview`,
+            public_id: `vinted/offers/${offer.id}/preview`,
           });
           offer.product_image = result;
         }
