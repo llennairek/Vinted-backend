@@ -81,8 +81,9 @@ router.put("/modify/:id", isAuthenticated, async (req, res) => {
           // if (key === "product_details") {
           //   offer.markModified(key);
           // }
+          console.log("coucou");
+          console.log(key);
           if (key === "picture") {
-            console.log("coucou");
             const result = await cloudinary.uploader.upload(req.files.picture.path, {
               public_id: `/vinted/offers/${offer.id}/preview`,
             });
