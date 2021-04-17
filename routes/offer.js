@@ -98,9 +98,9 @@ router.put("/update/:id", isAuthenticated, async (req, res) => {
               details[i].TAILLE = req.fields.size;
             }
           }
-          if (details[i].ÉTAT) {
+          if (details[i].ETAT) {
             if (req.fields.condition) {
-              details[i].ÉTAT = req.fields.condition;
+              details[i].ETAT = req.fields.condition;
             }
           }
           if (details[i].COULEUR) {
