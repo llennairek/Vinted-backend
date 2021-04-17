@@ -78,6 +78,9 @@ router.put("/modify/:id", isAuthenticated, async (req, res) => {
       if (offer && !keys.includes("owner")) {
         keys.forEach((key) => {
           offer[key] = req.fields[key];
+          if (key === "product-details") {
+            offer.markModified(key);
+          }
         });
         await offer.save();
         res.status(200).json(offer);
