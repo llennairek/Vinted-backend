@@ -30,7 +30,11 @@ router.get("/", async (req, res) => {
       skipNumber = limit * (Number(req.query.page) - 1);
     }
 
-    const offers = await Offer.find(filterObject).sort(sortObject).skip(skipNumber).limit(limit);
+    const offers = await Offer.find(filterObject)
+      .populate("owner", "account")
+      .sort(sortObject)
+      .skip(skipNumber)
+      .limit(limit);
 
     const count = await Offer.countDocuments(filterObject);
 
