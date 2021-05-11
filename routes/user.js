@@ -45,9 +45,15 @@ router.post("/signup", async (req, res) => {
     } else if (exist) {
       res
         .status(400)
-        .json({ message: `the email ${email} already exists in the database` });
+        .json({
+          message: `L'email ${email} existe déjà dans notre base de données`,
+        });
     } else if (!username) {
-      res.status(400).json({ message: "You can not have an empty username" });
+      res
+        .status(400)
+        .json({
+          message: "Vous ne pouvez pas avoir un nom d'utilisateur vide",
+        });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -72,18 +78,14 @@ router.post("/login", async (req, res) => {
           },
         });
       } else {
-        res
-          .status(400)
-          .json({
-            error: "Wrong email and/or wrong password, please try again",
-          });
+        res.status(400).json({
+          error: "Wrong email and/or wrong password, please try again",
+        });
       }
     } else {
-      res
-        .status(400)
-        .json({
-          message: `the mail ${email} is not known, please enter a valid email`,
-        });
+      res.status(400).json({
+        message: `the mail ${email} is not known, please enter a valid email`,
+      });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
