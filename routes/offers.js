@@ -7,8 +7,8 @@ router.get("/", async (req, res) => {
   const keys = Object.keys(req.query);
   const filterObject = {};
   const sortObject = {};
-  let limit = 5;
-  let skipNumber = 0;
+  // let limit = 5;
+  // let skipNumber = 0;
 
   try {
     if (keys.includes("title")) {
@@ -32,9 +32,9 @@ router.get("/", async (req, res) => {
 
     const offers = await Offer.find(filterObject)
       .populate("owner", "account")
-      .sort(sortObject)
-      .skip(skipNumber)
-      .limit(limit);
+      .sort(sortObject);
+    // .skip(skipNumber)
+    // .limit(limit);
 
     const count = await Offer.countDocuments(filterObject);
 
