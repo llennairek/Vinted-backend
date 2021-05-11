@@ -26,9 +26,9 @@ router.get("/", async (req, res) => {
     if (keys.includes("sort")) {
       sortObject.product_price = req.query.sort.split("-")[1];
     }
-    if (keys.includes("page")) {
-      skipNumber = limit * (Number(req.query.page) - 1);
-    }
+    // if (keys.includes("page")) {
+    //   skipNumber = limit * (Number(req.query.page) - 1);
+    // }
 
     const offers = await Offer.find(filterObject)
       .populate("owner", "account")
