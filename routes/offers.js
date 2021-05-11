@@ -38,7 +38,7 @@ router.get("/", async (req, res) => {
 
     const count = await Offer.countDocuments(filterObject);
 
-    return res.status(200).json({ count: count, results: offers });
+    return res.status(200).json({ count, offers });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
