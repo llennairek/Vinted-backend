@@ -43,7 +43,9 @@ router.post("/signup", async (req, res) => {
       await newUser.save();
       res.status(201).json({ id: newUser.id, token, account: newUser.account });
     } else if (exist) {
-      res.status(400).json({ message: `the email ${email} already exists in the database` });
+      res
+        .status(400)
+        .json({ message: `the email ${email} already exists in the database` });
     } else if (!username) {
       res.status(400).json({ message: "You can not have an empty username" });
     }
@@ -63,15 +65,25 @@ router.post("/login", async (req, res) => {
         res.status(200).json({
           id: user.id,
           token: user.token,
-          account: { username: user.account.username, phone: user.account.phone },
+          account: {
+            username: user.account.username,
+            phone: user.account.phone,
+            avatar: user.account.avatar,
+          },
         });
       } else {
-        res.status(400).json({ error: "Wrong email and/or wrong password, please try again" });
+        res
+          .status(400)
+          .json({
+            error: "Wrong email and/or wrong password, please try again",
+          });
       }
     } else {
       res
         .status(400)
-        .json({ message: `the mail ${email} is not known, please enter a valid email` });
+        .json({
+          message: `the mail ${email} is not known, please enter a valid email`,
+        });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
