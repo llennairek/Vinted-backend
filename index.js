@@ -10,6 +10,7 @@ require("dotenv").config();
 const userRoutes = require("./routes/user");
 const offerRoutes = require("./routes/offer");
 const allOffersRoutes = require("./routes/offers");
+const paymentRoutes = require("./routes/payment");
 
 //cloudinary config
 cloudinary.config({
@@ -25,6 +26,7 @@ app.use(formidable());
 app.use("/user", userRoutes);
 app.use("/offer", offerRoutes);
 app.use("/offers", allOffersRoutes);
+app.use("/payment", paymentRoutes);
 
 //connection to the vinted database
 mongoose.connect(process.env.MONGODB_URI, {
