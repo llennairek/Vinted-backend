@@ -1,4 +1,4 @@
-# 👖 👗 VINTED CLONE - FRONTEND
+# 👖 👗 VINTED CLONE - BACKEND
 
 Date : May 2021  
 
